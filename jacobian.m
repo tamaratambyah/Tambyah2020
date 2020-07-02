@@ -1,6 +1,6 @@
 function [L,D,U] = jacobian(q,k,nodes,dt,a,s_old,s)
 % FUNCTION JACOBIAN 
-% returns the jacobian relating in Equation (2.32) in tridiagonal form 
+% returns the jacobian relating in Equation (2.31) in tridiagonal form 
 
 global dz z eta
 
@@ -12,11 +12,11 @@ U = zeros(nodes,1); % upper diagonal
 r = dt/(eta*dz^2*s_old^2); % constant 
 ds_dt = (s-s_old)/dt; % change in s
 
-% boundary condition at x = 0, Equation (2.34)
+% boundary condition at x = 0, Equation (2.33)
 D(1) = k(1)/q(1)^2;
 U(1) = -k(2)/q(2)^2;
 
-% internal nodes, Equation (2.32)
+% internal nodes, Equation (2.31)
 for i = 2:length(z)-1
     C = z(i)*dt/(2*s_old*dz);
     D(i) = -1 - 2*r*k(i)*1/q(i)^2;
@@ -24,7 +24,7 @@ for i = 2:length(z)-1
     U(i) = r*k(i+1)*1/q(i+1)^2 + C*ds_dt;
 end
 
-% boundary condition at x = s(t), Equation (2.35)
+% boundary condition at x = s(t), Equation (2.34)
 i = nodes;
 D(i) = 1/(2*s_old*dz)*(-1/q(i)^2*(k(i)*(1/q(i)-a(i)) - k(i-1)*(1/q(i-1)-a(i-1))) ...
     - 1/q(i)*k(i)/q(i)^2) - k(i)/q(i)^2 ...
