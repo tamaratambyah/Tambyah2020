@@ -1,7 +1,7 @@
 function g = discretised_g(q,k,a,G,G_old,dt,s,s_old,G_ode,diff,H,multi,is_C1)
 global z dz eta nodes
 % FUNCTION DISCRETISED_G
-% returns the discretised version of Equation (2.33)
+% returns the discretised version of Equation (2.32)
 
 
 g = zeros(nodes,1); % initialise output
@@ -11,11 +11,11 @@ end
 
 ds_dt = (s-s_old)/dt;
 
-% Neumann boundary condition at x = 0, Equation (2.30)
+% Neumann boundary condition at x = 0, 
 j = 1;
 g(j) = G(j) - G(j+1);
 
-% internal nodes, Equation (2.33)
+% internal nodes, Equation (2.32)
 for j = 2:nodes-1
     
     %%% UPWINDING
@@ -39,7 +39,7 @@ for j = 2:nodes-1
         
 end
 
-% Neumann boundary condition at x = L(t), Equation (2.31)
+% Neumann boundary condition at x = L(t), Equation (2.30)
 j = nodes;
 v = 1/(s^2*eta*q(j)*dz)*(k(j)*(1/q(j)-a(j))-k(j-1)*(1/q(j-1)-a(j-1)))  -z(j)/s*ds_dt;
 g(j) = (G(j)-G_old(j))/dt ...
