@@ -14,13 +14,13 @@ end
 
 ds_dt = (s-s_old)/dt;
 
-% Neumann boundary condition at x = 0, Equation (2.30)
+% Neumann boundary condition at x = 0,
 j = 1;
 DD(j) = 1;
 UU(j) = -1;
 
 
-% internal nodes, Equation (2.33)
+% internal nodes, Equation (2.32)
 for j = 2:nodes-1
     
     %%% NON-UPWINDING COMPONENT
@@ -68,7 +68,7 @@ for j = 2:nodes-1
 end
 
 
-% Neumann boundary condition at x = s(t), Equation (2.31)
+% Neumann boundary condition at x = s(t), Equation (2.30)
 j = nodes;
 v = 1/(s^2*eta*q(j)*dz)*(k(j)*(1/q(j)-a(j))-k(j-1)*(1/q(j-1)-a(j-1)))  -z(j)/s*ds_dt;
 DD(j) = 1/dt ...
